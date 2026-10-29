@@ -154,6 +154,8 @@ ControllerManager::ControllerManager(QObject *parent)
 		return;
 
 	auto timer = new QTimer(this);
+	// coarse timers may be coalesced by the OS, which delays controller input
+	timer->setTimerType(Qt::PreciseTimer);
 	connect(timer, &QTimer::timeout, this, &ControllerManager::HandleEvents);
 	timer->start(UPDATE_INTERVAL_MS);
 	auto move_timer = new QTimer(this);
