@@ -430,6 +430,13 @@ static void *ctrl_thread_func(void *user)
 			uint32_t payload_size = *((uint32_t *)ctrl->recv_buf);
 			payload_size = ntohl(payload_size);
 
+			if(payload_size > sizeof(ctrl->recv_buf) - 8)
+			{
+				CHIAKI_LOGE(ctrl->session->log, "Ctrl buffer overflow!");
+				overflow = true;
+				break;
+			}
+
 			if(ctrl->recv_buf_size < 8 + payload_size)
 			{
 				if(8 + payload_size > sizeof(ctrl->recv_buf))

@@ -208,7 +208,7 @@ void ControllerManager::UpdateAvailableControllers()
 			continue;
 
 		// We'll try to identify pads with Motion Control
-		SDL_JoystickGUID guid = SDL_JoystickGetGUID(SDL_JoystickOpen(i));
+		SDL_JoystickGUID guid = SDL_JoystickGetDeviceGUID(i);
 		char guid_str[256];
 		SDL_JoystickGetGUIDString(guid, guid_str, sizeof(guid_str));
 

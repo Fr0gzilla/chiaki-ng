@@ -1188,7 +1188,7 @@ void StreamSession::UpdateGamepads()
 			{
 				haptics_handheld--;
 			}
-			QTimer::singleShot(1000, this, [this, controller] {
+			QTimer::singleShot(1000, controller, [this, controller] {
 				controller->ChangePlayerIndex(player_index);
 				controller->ChangeLEDColor(led_color);
 			});
@@ -2134,8 +2134,11 @@ void StreamSession::SetMicAuthorization(Authorization authorization)
 	switch(authorization)
 	{
 		case AUTHORIZED:
-			mic_authorization = true;
-			ToggleMute();
+			// may be called from an AVFoundation queue, toggle on the session's thread
+			QMetaObject::invokeMethod(this, [this]() {
+				mic_authorization = true;
+				ToggleMute();
+			}, Qt::QueuedConnection);
 			break;
 		case DENIED:
 			CHIAKI_LOGE(GetChiakiLog(), "You have denied mic access. Please manually enable mic access in your System Preferences.");

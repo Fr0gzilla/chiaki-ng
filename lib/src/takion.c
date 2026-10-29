@@ -1787,12 +1787,16 @@ static ChiakiErrorCode av_packet_parse(bool v12, ChiakiTakionAVPacket *packet, C
 
 	if(packet->uses_nalu_info_structs)
 	{
+		if(av_size < 3 + 1)
+			return CHIAKI_ERR_BUF_TOO_SMALL;
 		av += 3;
 		av_size -= 3;
 	}
 
 	if(v12 && !packet->is_video)
 	{
+		if(av_size < 1 + 1)
+			return CHIAKI_ERR_BUF_TOO_SMALL;
 		packet->is_haptics = *av == 0x02;
 		av += 1;
 		av_size -= 1;

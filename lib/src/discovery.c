@@ -340,9 +340,9 @@ static void *discovery_thread_func(void *user)
 		}
 
 		char buf[512];
-		struct sockaddr client_addr;
+		struct sockaddr_storage client_addr;
 		socklen_t client_addr_size = sizeof(client_addr);
-		CHIAKI_SSIZET_TYPE n = recvfrom(discovery->socket, buf, sizeof(buf) - 1, 0, &client_addr, &client_addr_size);
+		CHIAKI_SSIZET_TYPE n = recvfrom(discovery->socket, buf, sizeof(buf) - 1, 0, (struct sockaddr *)&client_addr, &client_addr_size);
 		if(n < 0)
 		{
 			CHIAKI_LOGE(discovery->log, "Discovery thread failed to read from socket");
@@ -362,7 +362,7 @@ static void *discovery_thread_func(void *user)
 
 		char addr_buf[64];
 		ChiakiDiscoveryHost response;
-		err = chiaki_discovery_srch_response_parse(&response, &client_addr, addr_buf, sizeof(addr_buf), buf, n);
+		err = chiaki_discovery_srch_response_parse(&response, (struct sockaddr *)&client_addr, addr_buf, sizeof(addr_buf), buf, n);
 		if(err != CHIAKI_ERR_SUCCESS)
 		{
 			CHIAKI_LOGI(discovery->log, "Discovery Response invalid");
@@ -394,9 +394,9 @@ static void *discovery_thread_func_oneshot(void *user)
 		}
 
 		char buf[512];
-		struct sockaddr client_addr;
+		struct sockaddr_storage client_addr;
 		socklen_t client_addr_size = sizeof(client_addr);
-		CHIAKI_SSIZET_TYPE n = recvfrom(discovery->socket, buf, sizeof(buf) - 1, 0, &client_addr, &client_addr_size);
+		CHIAKI_SSIZET_TYPE n = recvfrom(discovery->socket, buf, sizeof(buf) - 1, 0, (struct sockaddr *)&client_addr, &client_addr_size);
 		if(n < 0)
 		{
 			CHIAKI_LOGE(discovery->log, "Discovery thread failed to read from socket");
@@ -416,7 +416,7 @@ static void *discovery_thread_func_oneshot(void *user)
 
 		char addr_buf[64];
 		ChiakiDiscoveryHost response;
-		err = chiaki_discovery_srch_response_parse(&response, &client_addr, addr_buf, sizeof(addr_buf), buf, n);
+		err = chiaki_discovery_srch_response_parse(&response, (struct sockaddr *)&client_addr, addr_buf, sizeof(addr_buf), buf, n);
 		if(err != CHIAKI_ERR_SUCCESS)
 		{
 			CHIAKI_LOGI(discovery->log, "Discovery Response invalid");
