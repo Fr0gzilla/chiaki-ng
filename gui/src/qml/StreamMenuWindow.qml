@@ -80,7 +80,7 @@ Window {
 
         Rectangle {
             anchors.fill: parent
-            color: "#2b2b2b"
+            color: "#191c45"
         }
 
         RowLayout {

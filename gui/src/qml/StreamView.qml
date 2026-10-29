@@ -351,7 +351,7 @@ Item {
                         }
                         text: parent.visible ? Chiaki.window.queueDepthAverage.toFixed(1) : ""
                         font.bold: true
-                        color: "#90caf9"
+                        color: "#b9b4ff"
                         font.pixelSize: 18
                     }
                 }
@@ -373,7 +373,7 @@ Item {
                         }
                         text: parent.visible ? qsTr("%1 ms").arg((Chiaki.window.pendingFrameAge * 1000.0).toFixed(0)) : ""
                         font.bold: true
-                        color: "#90caf9"
+                        color: "#b9b4ff"
                         font.pixelSize: 18
                     }
                 }

@@ -8,6 +8,22 @@ import org.streetpea.chiaking
 Pane {
     padding: 0
     id: consolePane
+    background: Rectangle {
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: "#3a3f9e" }
+            GradientStop { position: 0.45; color: "#1e2163" }
+            GradientStop { position: 1.0; color: "#0d0e2b" }
+        }
+        Rectangle {
+            anchors.fill: parent
+            opacity: 0.35
+            gradient: Gradient {
+                orientation: Gradient.Horizontal
+                GradientStop { position: 0.0; color: "transparent" }
+                GradientStop { position: 1.0; color: "#c2457a" }
+            }
+        }
+    }
     StackView.onActivated: {
         forceActiveFocus(Qt.TabFocusReason);
         if(!Chiaki.autoConnect && !root.initialAsk && !Chiaki.window.directStream)
@@ -76,6 +92,14 @@ Pane {
             right: parent.right
         }
         height: 80
+        background: Rectangle {
+            color: Qt.rgba(1, 1, 1, 0.07)
+            Rectangle {
+                anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+                height: 1
+                color: Qt.rgba(1, 1, 1, 0.22)
+            }
+        }
 
         RowLayout {
             anchors {
@@ -93,6 +117,13 @@ Pane {
                 focusPolicy: Qt.NoFocus
                 onClicked: Qt.quit()
                 Material.roundedScale: Material.SmallScale
+            }
+
+            Label {
+                text: "Relais"
+                font.pixelSize: 30
+                font.weight: Font.DemiBold
+                opacity: 0.92
             }
 
             Item { Layout.fillWidth: true }
@@ -211,6 +242,26 @@ Pane {
             width: parent ? parent.width : 0
             height: modelData.display ? 180 : 0
             highlighted: ListView.isCurrentItem
+            leftInset: 16
+            rightInset: 16
+            topInset: 8
+            bottomInset: 8
+            background: Rectangle {
+                radius: 26
+                color: delegate.highlighted ? Qt.rgba(1, 1, 1, 0.16) : (delegate.hovered ? Qt.rgba(1, 1, 1, 0.11) : Qt.rgba(1, 1, 1, 0.07))
+                border.width: delegate.highlighted ? 2 : 1
+                border.color: delegate.highlighted ? Material.accent : Qt.rgba(1, 1, 1, 0.2)
+                Behavior on color { ColorAnimation { duration: 150 } }
+                // reflet du verre sur le haut de la carte
+                Rectangle {
+                    anchors { fill: parent; margins: 1 }
+                    radius: parent.radius - 1
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: Qt.rgba(1, 1, 1, 0.10) }
+                        GradientStop { position: 0.5; color: "transparent" }
+                    }
+                }
+            }
             onClicked: connectToHost()
 
             function connectToHost() {
@@ -241,10 +292,10 @@ Pane {
             RowLayout {
                 anchors {
                     fill: parent
-                    leftMargin: 30
-                    rightMargin: 10
-                    topMargin: 10
-                    bottomMargin: 10
+                    leftMargin: 46
+                    rightMargin: 26
+                    topMargin: 18
+                    bottomMargin: 18
                 }
                 spacing: 50
 
@@ -421,7 +472,7 @@ Pane {
     Image {
         id: logoImage
         anchors.centerIn: parent
-        source: "qrc:/icons/chiaking-logo-white.svg"
+        source: "qrc:/icons/relais-logo.svg"
         sourceSize: Qt.size(Math.min(parent.width, parent.height) / 2, Math.min(parent.width, parent.height) / 2)
 
         PropertyAnimation {
