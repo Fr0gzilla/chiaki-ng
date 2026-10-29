@@ -136,7 +136,7 @@ Pane {
                 focusPolicy: Qt.NoFocus
                 onClicked: root.showSteamShortcutDialog(false)
                 Material.roundedScale: Material.SmallScale
-                visible: typeof Chiaki.createSteamShortcut === "function"
+                visible: typeof Chiaki.createSteamShortcut === "function" && Qt.platform.os !== "osx"
                 Image {
                     anchors {
                         right: parent.right
@@ -173,8 +173,9 @@ Pane {
 
             Button {
                 Layout.fillHeight: true
-                Layout.preferredWidth: 300
+                Layout.preferredWidth: 380
                 flat: true
+                leftPadding: 56
                 text: qsTr("Add Manual Host")
                 focusPolicy: Qt.NoFocus
                 onClicked: root.showManualHostDialog()
@@ -347,7 +348,7 @@ Pane {
                         let t = "";
                         if(modelData.duid)
                             return t;
-                        t += qsTr("State: %1").arg(modelData.state);
+                        t += qsTr("State: %1").arg({ "ready": qsTr("ready"), "standby": qsTr("standby"), "unknown": qsTr("unknown") }[modelData.state] || modelData.state);
                         if(!modelData.discovered)
                             return t;
                         if (modelData.app)
