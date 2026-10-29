@@ -2870,9 +2870,9 @@ void QmlMainWindow::setSettings(Settings *new_settings)
     QString profile = settings->GetCurrentProfile();
     qCCritical(chiakiGui) << "Current Profile: " << profile;
     if(profile.isEmpty())
-        QGuiApplication::setApplicationDisplayName("Relais");
+        QGuiApplication::setApplicationDisplayName("Mac'n'Play");
     else
-        QGuiApplication::setApplicationDisplayName(QString("Relais:%1").arg(profile));
+        QGuiApplication::setApplicationDisplayName(QString("Mac'n'Play:%1").arg(profile));
     this->setTitle(QGuiApplication::applicationDisplayName());
 }
 

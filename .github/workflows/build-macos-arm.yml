@@ -62,8 +62,8 @@ jobs:
           ln -s libvulkan.1.dylib chiaki-ng.app/Contents/Frameworks/vulkan
           codesign --force --entitlements gui/entitlements.xml --deep --sign - chiaki-ng.app
           rm -f chiaki-ng.dmg
-          rm -rf Relais.app && mv chiaki-ng.app Relais.app
-          hdiutil create -volname Relais -srcfolder Relais.app chiaki-ng.dmg
+          rm -rf "Mac'n'Play.app" && mv chiaki-ng.app "Mac'n'Play.app"
+          hdiutil create -volname "Mac'n'Play" -srcfolder "Mac'n'Play.app" chiaki-ng.dmg
           codesign --force --entitlements gui/entitlements.xml --deep --sign - chiaki-ng.dmg
 
       - name: Upload chiaki-ng Artifact

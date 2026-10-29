@@ -77,7 +77,7 @@ int real_main(int argc, char *argv[])
 	QGuiApplication::setOrganizationName("Chiaki");
 	QGuiApplication::setApplicationName("Chiaki");
 	QGuiApplication::setApplicationVersion(CHIAKI_VERSION);
-	QGuiApplication::setApplicationDisplayName("Relais");
+	QGuiApplication::setApplicationDisplayName("Mac'n'Play");
 #if defined(Q_OS_MACOS)
 	qputenv("QT_MTL_NO_TRANSACTION", "1");
 #endif
@@ -112,7 +112,7 @@ int real_main(int argc, char *argv[])
 		return 1;
 	}
 
-    SDL_SetHint(SDL_HINT_APP_NAME, "Relais");
+    SDL_SetHint(SDL_HINT_APP_NAME, "Mac'n'Play");
 
 	if(SDL_Init(SDL_INIT_AUDIO) < 0)
 	{
@@ -187,7 +187,7 @@ int real_main(int argc, char *argv[])
 		settings.SetCurrentProfile(parser.value(profile_option));
 	Settings alt_settings(parser.isSet(profile_option) ? "" : settings.GetCurrentProfile());
 	if(!settings.GetCurrentProfile().isEmpty())
-		QGuiApplication::setApplicationDisplayName(QString("Relais:%1").arg(settings.GetCurrentProfile()));
+		QGuiApplication::setApplicationDisplayName(QString("Mac'n'Play:%1").arg(settings.GetCurrentProfile()));
 	bool use_alt_settings = false;
 	if(!parser.isSet(profile_option))
 		use_alt_settings = true;

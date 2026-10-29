@@ -120,7 +120,7 @@ Pane {
             }
 
             Label {
-                text: "Relais"
+                text: "Mac'n'Play"
                 font.pixelSize: 30
                 font.weight: Font.DemiBold
                 opacity: 0.92

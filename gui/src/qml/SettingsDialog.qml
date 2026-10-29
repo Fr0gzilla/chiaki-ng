@@ -3136,7 +3136,7 @@ DialogView {
                     Layout.preferredWidth: 400
                     verticalAlignment: Text.AlignTop
                     wrapMode: Text.Wrap
-                    text: "<h1>Relais</h1> version %1
+                    text: "<h1>Mac'n'Play</h1> version %1
                         <h2>Basé sur chiaki-ng</h2> de Street Pea, lui-même dérivé de Chiaki de Florian Markl (version 2.1.1)
 
                         <p>This program is free software: you can redistribute it and/or modify
