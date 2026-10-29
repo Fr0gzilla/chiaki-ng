@@ -558,6 +558,11 @@ static void *ctrl_thread_func(void *user)
 						uint32_t ctrl_payload_size = ntohl(*(uint32_t*)(message.data + offset));
 						if((message.data_size - offset - 8) == ctrl_payload_size)
 						{
+							if(message.data_size - offset > sizeof(ctrl->recv_buf) - ctrl->recv_buf_size)
+							{
+								CHIAKI_LOGE(ctrl->session->log, "Rudp ctrl message too big for receive buffer");
+								break;
+							}
 							memcpy(ctrl->recv_buf + ctrl->recv_buf_size, message.data + offset, message.data_size - offset);
 							ctrl->recv_buf_size += message.data_size - offset;
 						}
@@ -582,6 +587,11 @@ static void *ctrl_thread_func(void *user)
 						uint32_t ctrl_payload_size2 = ntohl(*(uint32_t*)(message.data + offset2));
 						if((message.data_size - offset2 - 8) == ctrl_payload_size2)
 						{
+							if(message.data_size - offset2 > sizeof(ctrl->recv_buf) - ctrl->recv_buf_size)
+							{
+								CHIAKI_LOGE(ctrl->session->log, "Rudp ctrl message too big for receive buffer");
+								break;
+							}
 							memcpy(ctrl->recv_buf + ctrl->recv_buf_size, message.data + offset2, message.data_size - offset2);
 							ctrl->recv_buf_size += message.data_size - offset2;
 						}
@@ -680,7 +690,7 @@ static ChiakiErrorCode ctrl_message_send(ChiakiCtrl *ctrl, uint16_t type, const 
 
 	if(ctrl->session->rudp)
 	{
-		uint8_t buf_size = 8 + payload_size;
+		size_t buf_size = 8 + payload_size;
 		uint8_t buf[buf_size];
 		memcpy(buf, header, 8);
 		if(enc)

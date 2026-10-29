@@ -540,7 +540,7 @@ StreamSession::StreamSession(const StreamSessionConnectInfo &connect_info, QObje
 	{
 		err = InitiatePsnConnection(connect_info.psn_token);
 		if (err != CHIAKI_ERR_SUCCESS)
-			throw ChiakiException("Psn Connection Failed " + QString::fromLocal8Bit(chiaki_error_string(err)));
+			throw ChiakiException(tr("Psn Connection Failed ") + tr(chiaki_error_string(err)));
 		chiaki_connect_info.holepunch_session = holepunch_session;
         QByteArray psn_account_id = QByteArray::fromBase64(connect_info.psn_account_id.toUtf8());
         if (psn_account_id.size() != CHIAKI_PSN_ACCOUNT_ID_SIZE) {
@@ -550,7 +550,7 @@ StreamSession::StreamSession(const StreamSessionConnectInfo &connect_info, QObje
 	}
 	err = chiaki_session_init(&session, &chiaki_connect_info, GetChiakiLog());
 	if(err != CHIAKI_ERR_SUCCESS)
-		throw ChiakiException("Chiaki Session Init failed: " + QString::fromLocal8Bit(chiaki_error_string(err)));
+		throw ChiakiException(tr("Chiaki Session Init failed: ") + tr(chiaki_error_string(err)));
 	ChiakiCtrlDisplaySink display_sink;
 	display_sink.user = this;
 	display_sink.cantdisplay_cb = CantDisplayCb;

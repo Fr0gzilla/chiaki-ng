@@ -777,6 +777,8 @@ static void stream_connection_takion_data_expect_bang(ChiakiStreamConnection *st
 			if(!stream_connection->streaminfo_early_buf)
 			{
 				stream_connection->streaminfo_early_buf = malloc(buf_size);
+				if(!stream_connection->streaminfo_early_buf)
+					return;
 				memcpy(stream_connection->streaminfo_early_buf, buf, buf_size);
 				stream_connection->streaminfo_early_buf_size = buf_size;
 				CHIAKI_LOGI(stream_connection->log, "StreamConnection received streaminfo early, saving ...");
@@ -889,6 +891,7 @@ static bool pb_decode_resolution(pb_istream_t *stream, const pb_field_t *field, 
 	if(ctx->video_profiles_count >= CHIAKI_VIDEO_PROFILES_MAX)
 	{
 		CHIAKI_LOGE(ctx->stream_connection->session->log, "Received more resolutions than the maximum");
+		free(header_buf_padded);
 		return true;
 	}
 

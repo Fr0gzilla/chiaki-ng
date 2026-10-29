@@ -298,7 +298,7 @@ void DiscoveryManager::SendWakeup(const QString &host, const QByteArray &regist_
 		err = chiaki_discovery_wakeup(&log, service_active ? &service.discovery : nullptr, host.toUtf8().constData(), credential, ps5);
 
 	if(err != CHIAKI_ERR_SUCCESS)
-		throw Exception(QString("Failed to send Packet: %1").arg(chiaki_error_string(err)));
+		throw Exception(tr("Failed to send Packet: %1").arg(tr(chiaki_error_string(err))));
 }
 
 const QList<DiscoveryHost> DiscoveryManager::GetHosts() const

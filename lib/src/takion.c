@@ -1398,12 +1398,16 @@ static void takion_handle_packet_message_data(ChiakiTakion *takion, uint8_t *pac
 	if(payload_size < 9)
 	{
 		CHIAKI_LOGE(takion->log, "Takion received data with a size less than the header size");
+		free(packet_buf);
 		return;
 	}
 
 	TakionDataPacketEntry *entry = malloc(sizeof(TakionDataPacketEntry));
 	if(!entry)
+	{
+		free(packet_buf);
 		return;
+	}
 
 	entry->type_b = type_b;
 	entry->packet_buf = packet_buf;
